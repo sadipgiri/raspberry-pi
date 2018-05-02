@@ -20,3 +20,7 @@ for i in range(0, 100):
     print(i)
 
 GPIO.cleanup() # cleanups all the pins of rasberry pi
+
+# just adding main function to do some testing!
+if __name__ == '__main__':
+    main()
