@@ -1,2 +1,3 @@
+echo "Using Github to make changes and codes in Rasberry pi"
 curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/blink.py
 sudo python3 /home/pi/blink.py
