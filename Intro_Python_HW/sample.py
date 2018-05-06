@@ -30,7 +30,7 @@ def multiply(num, times):
 
 def divide(num, divisor):
     if divisor == 0:
-        return "Indeterminant Form!, You cannot divide by Zero [Zero Divison Error]"
+        raise ValueError("Indeterminant Form!, You cannot divide by Zero [Zero Divison Error]")
     if num == 0:
         return 0
     count = 0
@@ -45,7 +45,7 @@ def divide(num, divisor):
             if num < 0 or divisor < 0:
                 return -count
             return count
-    return "It doesn't divide"
+    raise ValueError("It doesn't divide")
 
 
 ## Problem 2:
@@ -64,7 +64,7 @@ def length_guesser(my_string, my_length_guess):
         return -1
     else:
         return 1
-    return "Something is wrong!"
+    raise ValueError("Something is wrong!")
 
 
 if __name__ == '__main__':
