@@ -1,4 +1,5 @@
 echo "Using Github to make changes and codes in Rasberry pi"
-curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/blink.py
+echo curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/blink.py
+curl -O 
 pip3 install smbus2
 sudo python3 /home/pi/blink.py
