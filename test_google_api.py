@@ -4,7 +4,7 @@
     Date: 05/06/2018
 """
 
-import gspread
+import gspread 
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -21,4 +21,8 @@ print(work_sheet.get_all_records())
 References:
     - Went through Google API Managers Tutorial
     - Why? It will be easier to visualize, makes changes, call an api...
+"""
+
+"""
+    Roadblock: still need to figure out some issues. So, for now, I am saving it in local file.
 """

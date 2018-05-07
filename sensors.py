@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-import smbus2
-import time
-import csv
-from datetime import datetime
+import smbus2   # smbus2 module to open i2c bus and write/read sensor data
+import time     # to make it sleep
+import csv      # saving it in the local file
+from datetime import datetime   # to save datetime when the sensor readings were done
 
 def temp_and_humidity():
-    lst = []
+    lst = []    # to write readings in the list and write it in the local csv file
     lst.append(str(datetime.now()))    # timestamp 
 
     # opening i2c bus 1

@@ -29,7 +29,7 @@ def multiply(num, times):
     return result
 
 def divide(num, divisor):
-    if divisor == 0:
+    if divisor == 0:    # divisor could not be Zero
         raise ValueError("Indeterminant Form!, You cannot divide by Zero [Zero Divison Error]")
     if num == 0:
         return 0
@@ -37,8 +37,8 @@ def divide(num, divisor):
     abs_num = abs(num)
     abs_divisor = abs(divisor)
     while abs_num > 0:
-        abs_num = subtracts_two_numbers(abs_divisor, abs_num)
-        count = count + 1
+        abs_num = subtracts_two_numbers(abs_divisor, abs_num)  
+        count = count + 1       # need to add extra one since we are subtracting
         if abs_num == 0:
             if num < 0 and divisor < 0:
                 return count
@@ -52,7 +52,7 @@ def divide(num, divisor):
 def total_ASCII(str):
     total = 0
     for i in str:
-        total += ord(i)
+        total += ord(i) # ord() returns ASCII of a character
     return total
     
  # Problem 3
