@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from smbus2 import SMBus
+import smbus2
 import time
  
 # opening i2c bus 1
-bus = SMBus(1)
+bus = smbus2.SMBus(1)
  
 # SHT31 sensor address: 0x44(68)
 bus.write_i2c_block_data(0x44, 0x2C, [0x06])
