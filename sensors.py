@@ -2,9 +2,13 @@
 
 import smbus2
 import time
+import csv
+from datetime import datetime
 
 def temp_and_humidity():
     lst = []
+    lst.append(str(datetime.now()))    # timestamp 
+
     # opening i2c bus 1
     bus = smbus2.SMBus(1)
     
@@ -32,10 +36,17 @@ def temp_and_humidity():
     lst.append(fahren_temp)
     humidity = 100 * (humidity_msb * 256 + humidity_lsb) / 65535.0
     lst.append(humidity)
-    return lst
+    with open('sensor_readings.csv', 'a') as csvfile:
+        csvfile.write('{0}, {1}, {2}\n'.format(data[0], data[1], data[2]))
+
+
+# def write_on_csv_file(data):
+#     with open('sensor_readings.csv', 'a') as csvfile:
+#     csvfile.write('{0}, {1}, {2}\n'.format(data[0], data[1], data[2]))
+
 
 if __name__ == '__main__':
-    print (temp_and_humidity())
+    temp_and_humidity()
 
 """
 References:
