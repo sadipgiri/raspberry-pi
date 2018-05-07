@@ -37,7 +37,7 @@ def temp_and_humidity():
     humidity = 100 * (humidity_msb * 256 + humidity_lsb) / 65535.0
     lst.append(humidity)
     with open('sensor_readings.csv', 'a') as csvfile:
-        csvfile.write('{0}, {1}, {2}\n'.format(data[0], data[1], data[2]))
+        csvfile.write('{0}, {1}, {2}\n'.format(lst[0], lst[1], lst[2]))
 
 
 # def write_on_csv_file(data):
