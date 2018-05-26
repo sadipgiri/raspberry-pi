@@ -9,6 +9,7 @@
 import RPi.GPIO as GPIO
 import smbus
 import time
+from datetime import datetime
 
 LED_PIN = 20    # the BCM pin number of our LED
 GPIO_IS_SETUP = False    # is GPIO setmode and setup complete?
@@ -30,7 +31,7 @@ def get_reading():
     bus.write_byte_data(DEVICE_ADDRESS, 0x24, 0x00)
     time.sleep(0.015)
     block = bus.read_i2c_block_data(DEVICE_ADDRESS, 0, 6)
-    return block   
+    return block
 
 def soft_reset():
     bus.write_byte_data(DEVICE_ADDRESS, 0x30, 0xA2)
@@ -87,9 +88,34 @@ def read_sensor(times=1):
     dcts = {"temp": convert_temperature_reading(data[0], data[1]), "humid": convert_humidity_reading(data[3], data[4])}
     return dcts
 
+def writing_to_file(loops=1):
+    if loops:
+        for i in range(0, loops):
+            write_once_to_file()
+        return
+    write_once_to_file()
+
+def write_once_to_file():
+    data = get_reading()
+    current_time = datetime.now()
+    temp = convert_temperature_reading(data[0], data[1])
+    humid = convert_humidity_reading(data[3], data[4])
+    with open('readings.csv', 'a') as my_file:
+        my_file.write('{0}, {1}, {2}\n'.format(str(current_time), temp, humid))
+    my_file.close()
+
+def read_file():
+    my_file = open('readings.csv', 'r')
+    line = my_file.readline()
+    while line:
+        print(line)
+        line = my_file.readline()
+
 if __name__ == '__main__':
-    print(read_sensor(times=3))
-    
+    # print(read_sensor(times=3))
+    writing_to_file(loops=5)
+    read_file()
+
     #for i in range(0, 10):
     #led_on()
     #time.sleep(0.25)
