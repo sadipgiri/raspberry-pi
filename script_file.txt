@@ -1,5 +1,5 @@
 echo "Using Github to make changes and codes in Rasberry pi"
 echo curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/blink.py
-curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/sensors.py 
+curl -O https://raw.githubusercontent.com/sadipgiri/raspberry-pi/master/Advance_Sensor_Reading_HW/sensors.py 
 echo pip3 install smbus2
-sudo python3 /home/pi/sensors.py
+echo sudo python3 /home/pi/sensors.py

@@ -32,6 +32,20 @@ def get_reading():
     time.sleep(0.015)
     block = bus.read_i2c_block_data(DEVICE_ADDRESS, 0, 6)
     return block
+    # if verify_sum(block):
+    #     return block
+    # raise ValueError("Its not reading the valid data")
+
+def verify_sum(data):
+    temp_msb = hex(data[0])
+    temp_lsb = hex(data[1])
+    temp_crc = hex(data[2])
+    humidity_msb = hex(data[3])
+    humidity_lsb = hex(data[4])
+    humidity_crc = hex(data[5])
+    if crc8(temp_msb, temp_lsb) == temp_crc and crc8(humidity_msb, humidity_lsb) == humidity_crc:
+        return True    
+    return False
 
 def soft_reset():
     bus.write_byte_data(DEVICE_ADDRESS, 0x30, 0xA2)
@@ -69,9 +83,6 @@ def convert_humidity_reading(humidity_msb, humidity_lsb):
     raw_humid = (humidity_msb << 8) | humidity_lsb
     humid = (100 * raw_humid)/(2**16 - 1)
     return humid
-
-def verify_sum(temp_crc, humidity_crc):
-    return 0
 
 def read_sensor(times=1):
     dcts = {}
@@ -128,12 +139,27 @@ def return_min_max_avg():
     avg = sum/number_of_observations
     return {'min': min, 'max': max, 'avg': avg}
 
+def crc8(msb, lsb):
+    buffer = [msb, lsb] # put our bytes into a list
+    polynomial = 0x31   # see the table 19 - polynomial
+    crc = 0xFF          # see table 19 - initialization
+    index = 0           # our index into our buffer
+    for index in range(0, len(buffer)):
+        crc ^= buffer[index]    # ^ is XOR
+        for i in range(8, 0, -1):
+            if crc & 0x80:
+                crc = (crc << 1) ^ polynomial
+            else:
+                crc = (crc << 1)  
+    return hex(crc & 0xFF)   # this will be the CRC we use for comparison
+
 
 if __name__ == '__main__':
     # print(read_sensor(times=3))
-    writing_to_file(loops=5)
-    read_file()
-    return_min_max_avg()
+    # writing_to_file(loops=5)
+    # read_file()
+    print(return_min_max_avg())
+    # print(hex(get_reading()[0]))
 
     #for i in range(0, 10):
     #led_on()
