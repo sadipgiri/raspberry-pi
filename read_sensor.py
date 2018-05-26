@@ -111,10 +111,29 @@ def read_file():
         print(line)
         line = my_file.readline()
 
+def return_min_max_avg():
+    my_file = open('readings.csv', 'r')
+    lst = my_file.readlines()
+    min =  float(lst[0].split(',')[1])
+    max = float(0)
+    number_of_observations = len(lst)
+    sum = 0
+    for i in lst:
+        temporary_temp = float(i.split(',')[1])
+        if min > temporary_temp:
+            min = temporary_temp
+        if max < temporary_temp:
+            max = temporary_temp
+        sum = sum + temporary_temp
+    avg = sum/number_of_observations
+    return {'min': min, 'max': max, 'avg': avg}
+
+
 if __name__ == '__main__':
     # print(read_sensor(times=3))
     writing_to_file(loops=5)
     read_file()
+    return_min_max_avg()
 
     #for i in range(0, 10):
     #led_on()
